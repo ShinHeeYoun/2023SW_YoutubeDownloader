@@ -8,14 +8,15 @@ def download_video(youtube_url, download_path, status_callback, download_format)
 
         status_callback(f'찾는 중: {yt.title}')
 
+        filename = None
+
         if download_format == "mp4":
             # 영상 포맷 중에서 가장 품질이 좋은 mp4 포맷 선택
             selected_stream = yt.streams.get_highest_resolution()
+            filename = f"{yt.title}.mp4"
         elif download_format == "mp3":
             # 오디오 포맷 중에서 가장 품질이 좋은 mp3 포맷 선택
             selected_stream = yt.streams.filter(only_audio=True).first()
-            # 확장자 확인
-            extension = selected_stream.mime_type.split("/")[-1]
             # 파일 이름 설정
             filename = f"{yt.title}.mp3"
         else:
