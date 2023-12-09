@@ -6,7 +6,7 @@ import threading
 import os
 from downloader import download_video
 
-# 전역 변수로 이전 다운로드 경로를 저장할 변수 추가
+# 전역 변수로 이전 다운로드 경로를 저장할 변수 추가, 디폴트는 실행기 위치치
 previous_download_path = None
 
 def download_youtube_video():
