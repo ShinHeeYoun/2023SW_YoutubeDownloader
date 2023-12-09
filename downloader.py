@@ -1,20 +1,38 @@
-# downloader.py
 from pytube import YouTube
 from pytube.exceptions import PytubeError
 
-def download_video(youtube_url, download_path, status_callback):
+def on_progress(stream, chunk, bytes_remaining):
+    total_size = stream.filesize
+    bytes_downloaded = total_size - bytes_remaining
+    percentage = (bytes_downloaded / total_size) * 100
+    print(f"다운로드 중... {percentage:.2f}% 완료", end='\r', flush=True)
+
+
+def download_video(youtube_url, download_path, status_callback, download_format):
     try:
-        # YouTube 객체 생성
-        yt = YouTube(youtube_url)
+         # YouTube 비디오 객체 생성
+        yt = YouTube(youtube_url, on_progress_callback=on_progress)
 
         status_callback(f'찾는 중: {yt.title}')
-        
-        # 영상 포맷 중에서 가장 품질이 좋은 포맷 선택
-        video = yt.streams.get_highest_resolution()
+
+        filename = None
+
+        if download_format == "mp4":
+            # 영상 포맷 중에서 가장 품질이 좋은 mp4 포맷 선택
+            selected_stream = yt.streams.get_highest_resolution()
+            filename = f"{yt.title}.mp4"
+        elif download_format == "mp3":
+            # 오디오 포맷 중에서 가장 품질이 좋은 mp3 포맷 선택
+            selected_stream = yt.streams.filter(only_audio=True).first()
+            # 파일 이름 설정
+            filename = f"{yt.title}.mp3"
+        else:
+            status_callback("에러: 지원하지 않는 다운로드 형식입니다.")
+            return
 
         # 다운로드 시작
         status_callback(f'다운로드 중: {yt.title}')
-        video.download(download_path)
+        selected_stream.download(download_path, filename=filename)
         status_callback('다운로드 완료!')
 
     except PytubeError as e:
