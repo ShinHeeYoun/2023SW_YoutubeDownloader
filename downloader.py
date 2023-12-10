@@ -8,7 +8,7 @@ def on_progress(stream, chunk, bytes_remaining):
     print(f"다운로드 중... {percentage:.2f}% 완료", end='\r', flush=True)
 
 
-def download_video(youtube_url, download_path, status_callback, download_format):
+def download_video(youtube_url, download_path, status_callback, update_progress_label, download_format):
     try:
          # YouTube 비디오 객체 생성
         yt = YouTube(youtube_url, on_progress_callback=on_progress)
