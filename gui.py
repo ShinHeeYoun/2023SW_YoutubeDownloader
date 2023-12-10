@@ -24,7 +24,7 @@ def download_youtube_video():
         previous_download_path = download_path
 
         # 다운로드 함수 호출
-        download_video(youtube_url, download_path, update_status_label)
+        download_video(youtube_url, download_path, update_status_label, 'mp4')
 
         # 다운로드 완료 후 폴더 열기 버튼 활성화
         open_folder_button.config(state=tk.NORMAL)
