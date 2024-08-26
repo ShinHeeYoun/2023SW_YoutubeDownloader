@@ -9,9 +9,6 @@
 ## 프로젝트 개요
 2023년 2학기 공개SW실무 9조는 YouTube 동영상을 다운로드하는 도구를 개발하는 프로젝트를 수행했습니다.
 
-## 시연용 테스트 비디오
-https://www.youtube.com/watch?v=LiNXyymCt5I&ab_channel=ChrisCool
-
 ## 사용된 파이썬 코드
 프로젝트의 기반이 되는 오픈소스 코드는 [여기](https://github.com/KurtBestor/Hitomi-Downloader/blob/master/src/extractor/youtube_downloader.py)에서 확인할 수 있습니다.
 
